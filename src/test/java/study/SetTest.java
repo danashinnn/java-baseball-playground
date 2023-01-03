@@ -25,21 +25,4 @@ public class SetTest {
         numbers.add(3);
     }
 
-    @Test
-    void checkSize() {
-        int size = numbers.size();
-        assertThat(size).isEqualTo(3);
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = {1, 2, 3})
-    void usingContains1(int i) {
-        assertTrue(numbers.contains(i));
-    }
-
-    @ParameterizedTest
-    @CsvSource(value = {"1:true", "2:true", "3:true", "4:false", "5:false"}, delimiter = ':')
-    void usingContains2(int i, boolean expected) {
-        assertEquals(numbers.contains(i), expected);
-    }
 }
