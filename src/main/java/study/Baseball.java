@@ -6,22 +6,27 @@ import java.util.Scanner;
 public class Baseball {
 
     private String answer;
-    private int strike;
-    private int ball;
+    private String userInput;
+    public int strike;
+    public int ball;
     private Random r;
+    private InputView iv;
+    private ResultView rv;
 
     Baseball() {
         answer = "";
+        userInput = "";
         strike = 0;
         ball = 0;
         r = new Random();
+        iv = new InputView();
+        rv = new ResultView();
     }
 
-    public String random() {
+    public void random() {
         for(int i=0; i<3; i++) {
             answer += r.nextInt(8) + 1;
         }
-        return answer;
     }
 
     public char[] stringToArr(String str) {
@@ -40,5 +45,15 @@ public class Baseball {
             strike++;
         }
         ball++;
+    }
+
+    public void gameStart() {
+        char[] arr = stringToArr(iv.userInput());
+        random();
+        for(int i=0; i<3; i++) {
+            checkContains(arr[i]);
+        }
+        rv.result();
+        iv.userChoice();
     }
 }
