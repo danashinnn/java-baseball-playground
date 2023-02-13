@@ -5,55 +5,45 @@ import java.util.Scanner;
 
 public class Baseball {
 
-    private String answer;
-    private String userInput;
     public int strike;
     public int ball;
     private Random r;
-    private InputView iv;
-    private ResultView rv;
 
     Baseball() {
-        answer = "";
-        userInput = "";
         strike = 0;
         ball = 0;
         r = new Random();
-        iv = new InputView();
-        rv = new ResultView();
     }
 
-    public void random() {
+    public String random() {
+        String str = "";
         for(int i=0; i<3; i++) {
-            answer += r.nextInt(8) + 1;
+            str += r.nextInt(8) + 1;
+            for(int j=0; j<i; j++) {
+                if(str.charAt(j) == str.charAt(i)) {
+                    i--;
+                }
+            }
         }
+        return str;
     }
 
     public char[] stringToArr(String str) {
         return str.toCharArray();
     }
 
-    public void checkContains(char ch) {
-        int idx = answer.indexOf(ch);
-        if(idx != -1) {
-            checkEqual(ch, idx);
-        }
+    public int searchIndex(char ch, String str) {
+        return str.indexOf(ch);
     }
 
-    public void checkEqual(char ch, int idx) {
-        if(answer.charAt(idx) == ch) {
-            strike++;
+    public int checkEqual(int i, int idx) {
+        if(idx == -1) {
+            return 0;
         }
-        ball++;
+        if(idx == i) {
+            return 1;
+        }
+        return 2;
     }
 
-    public void gameStart() {
-        char[] arr = stringToArr(iv.userInput());
-        random();
-        for(int i=0; i<3; i++) {
-            checkContains(arr[i]);
-        }
-        rv.result();
-        iv.userChoice();
-    }
 }
